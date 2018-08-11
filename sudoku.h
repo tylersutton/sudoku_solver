@@ -1,6 +1,3 @@
-//header file for sudoku
-
-typedef unsigned int uint;
 
 class Cell {
 	public:
@@ -13,7 +10,6 @@ class Cell {
 
 class Sudoku {
 	public:
-		//array of 81 cells for Sudoku board
 		Cell cell[81];
 		Sudoku createSudoku();
 		void updateSudoku();

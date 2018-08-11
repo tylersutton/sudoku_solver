@@ -20,7 +20,6 @@ Sudoku Sudoku::createSudoku() {
 
 bool Sudoku::solveSudoku(Sudoku *sudoku) {
 	if (sudoku->isSolved(sudoku) == true) {
-		//cout << "whoops" << endl;
 		return true;
 	}
 	int n = findEmpty(sudoku);
@@ -28,7 +27,6 @@ bool Sudoku::solveSudoku(Sudoku *sudoku) {
 		if (sudoku->cell[n].in == false) {
 			sudoku->cell[n].val = x;
 		}
-		//cout << "cell [" << n << "] = " << x << endl;
 		if (sudoku->isValid(sudoku)) {
 			//system("clear");
 			//sudoku->displaySudoku(sudoku);			
@@ -54,17 +52,14 @@ bool Sudoku::isValid(Sudoku *sudoku) {
 			A[x] += 1;
 			B[y] += 1;
 			if (x < 0 || x > 9) {
-				cout << "invalid number: out of bounds" << endl;
 				return 0;
 			}
 		}
 		for (int k = 0; k < 9; k++) {
 			if (A[k+1] > 1) {
-				//cout << "invalid row" << endl;
 				return 0;
 			}
 			if (B[k+1] > 1) {
-				//cout << "invalid column" << endl;
 				return 0;
 			}
 		}
@@ -81,13 +76,11 @@ bool Sudoku::isValid(Sudoku *sudoku) {
 			}
 			for (int b = 0; b < 9; b++) {
 				if (A[b+1] > 1) {
-					//cout << "invalid box" << endl;
 					return 0;
 				}
 			}
 		}
 	}
-	//cout << "valid" << endl;
 	return 1;
 }
 
