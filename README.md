@@ -29,3 +29,8 @@ The solution of this puzzle outputs as shown:
 6 3 4 | 5 7 2 | 1 9 8  
 9 1 7 | 8 3 6 | 2 5 4  
 5 2 8 | 4 9 1 | 3 6 7  
+
+
+Several sudoku puzzles written in proper input format can be found in "puzzles.txt".  
+The puzzle to be solved should be placed in "sudoku.txt".  
+
