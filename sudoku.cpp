@@ -3,6 +3,10 @@
 #include "sudoku.h"
 using namespace std;
 
+/*
+ * createSudoku()
+ * fills board object with values from input text file
+ */
 Sudoku Sudoku::createSudoku() {
 	Sudoku *board = new Sudoku;
 	//initialize cells to 0 (empty)
@@ -13,18 +17,24 @@ Sudoku Sudoku::createSudoku() {
 		exit(1);
 	}
 	for (int i = 0; i < 81; i++) {
-		file >> board->cell[i].val;
+		file >> board->cell[i].val; // fill board with init board values from sudoku.txt
 	}
 	return *board;
 }
 
+/*
+ * solveSudoku(Sudoku *sudoku)
+ * recursively tests for valid values in each cell of the board,
+ * from top left to bottom right.
+ */
 bool Sudoku::solveSudoku(Sudoku *sudoku) {
 	if (sudoku->isSolved(sudoku) == true)
 		return true;
 	int n = findEmpty(sudoku);
+	// try new val for next empty cell
 	for (int x = 1; x <= 9; x++) {
 		if (sudoku->cell[n].in == false)
-			sudoku->cell[n].val = x;
+			sudoku->cell[n].val = x; 
 		if (sudoku->isValid(sudoku)) {
 			//system("clear");
 			//sudoku->displaySudoku(sudoku);			
@@ -32,11 +42,17 @@ bool Sudoku::solveSudoku(Sudoku *sudoku) {
 				return true;
 		}
 	}
+	// if val doesn't lead to solution, clear cell and return
 	if (sudoku->cell[n].in == false)
-		sudoku->cell[n].val = 0;
+		sudoku->cell[n].val = 0; 
 	return false;
 }
 
+/*
+ * bool isValid(sudoku *sudoku)
+ * uses Sudoku rules to check if the 
+ * current state of the board is valid.
+ */
 bool Sudoku::isValid(Sudoku *sudoku) {
 	//checks rows & columns
 	for (int i = 0; i < 9; i++) {
@@ -76,19 +92,31 @@ bool Sudoku::isValid(Sudoku *sudoku) {
 	return 1;
 }
 
+/*
+ * bool isSolved(Sudoku *sudoku)
+ * returns true if the sudoku board is
+ * valid and all cells are filled
+ */
 bool Sudoku::isSolved(Sudoku *sudoku) {
+	//return false if any cell is empty
 	for (int i = 0; i < 81; i++) {
 		if (sudoku->cell[i].val == 0)
 			return false;
 	}
+	// check if board is a valid solution
 	if (sudoku->isValid(sudoku) == false)
 		return false;
+	// display board and return if solution is found
 	else {
 		sudoku->displaySudoku(sudoku);
 		return true;
 	}
 }
 
+/*
+ * displaySudoku(Sudoku *sudoku)
+ * prints the board to console.
+ */
 void Sudoku::displaySudoku(Sudoku *sudoku) {
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
@@ -108,6 +136,11 @@ void Sudoku::displaySudoku(Sudoku *sudoku) {
 	}
 }
 
+/*
+ * int findEmpty(Sudoku *sudoku)
+ * returns index of the first empty cell
+ * in the board.
+ */
 int Sudoku::findEmpty(Sudoku *sudoku) {
 	for (int n = 0; n < 81; n++) {
 		if (sudoku->cell[n].val == 0)
